@@ -3,7 +3,9 @@ from io import BytesIO
 from concurrent.futures import ThreadPoolExecutor
 from PIL import Image
 from bs4 import BeautifulSoup as bs
-import requests
+from requests import Session
+requests = Session()
+requests.headers["User-Agent"] = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36"
 class InvalidUrl(Exception):
     pass
 class ImageX:
@@ -34,7 +36,7 @@ class ImageX:
 class searchManga:
     def __init__(self, query, post_type="manga") -> None:
         self.query = query
-        self.fetch = [byUrl(f"https://komiku.id{i}") for i in re.findall("(/ch/.*?)/", requests.get("https://data2.komiku.id/cari/?post_type=manga&s=naruto", params={"post_type":post_type, "s":query}).text)]
+        self.fetch = [byUrl(f"https://komiku.id{i}") for i in re.findall("(/ch/.*?)/", requests.get("https://data2.komiku.id/cari/", params={"post_type":post_type, "s":query}).text)]
     def __str__(self) -> str:
         return f"<[ count: {self.fetch.__len__()}]>"
     def __repr__(self) -> str:
