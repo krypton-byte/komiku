@@ -34,7 +34,7 @@ class ImageX:
 class searchManga:
     def __init__(self, query, post_type="manga") -> None:
         self.query = query
-        self.fetch = [byUrl(f"https://komiku.id{i}") for i in re.findall("(/ch/.*?)/", requests.get("https://data2.komiku.id/cari/?post_type=manga&s=naruto", params={"post_type":post_type, "s":query}).text)]
+        self.fetch = [byUrl(f"https://komiku.id{i}") for i in re.findall("(/ch/.*?)/", requests.get("https://data2.komiku.id/cari/", params={"post_type":post_type, "s":query}).text)]
     def __str__(self) -> str:
         return f"<[ count: {self.fetch.__len__()}]>"
     def __repr__(self) -> str:
